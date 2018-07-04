@@ -1,11 +1,9 @@
-Simple Django app with Celery workers that need to handle asynchronously lightweight and cpu-heavy tasks.
-Lightweight tasks are processed in a local queue, while the cpu-heavy tasks are routed to a Kubernetes node that scales automatically.
-
-Everything runs locally in this example, but in a production environment, it would make more sense to have the Kubernetes node in the cloud.
+Simple Django app with Celery workers computing longest common substring tasks asynchronously in separate processes.
+Lightweight tasks, i.e. small input, are processed in a local queue, while larger input is routed to a Kubernetes node, which in turn can be located in the cloud and could be configured to scale automatically.
 
 ### Requirements
 
 * Django
+* Django REST framework
 * Celery
-* Jinja2
 * RabbitMQ
