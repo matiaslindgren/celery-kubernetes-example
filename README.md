@@ -3,7 +3,8 @@ Lightweight tasks, i.e. small input, are processed in a local queue, while large
 
 ### Requirements
 
-* Django
-* Django REST framework
-* Celery
-* RabbitMQ
+* [Django](https://www.djangoproject.com)
+* [Django REST framework](http://www.django-rest-framework.org)
+* [Celery](http://www.celeryproject.org)
+* [RabbitMQ](https://www.rabbitmq.com)
+* [minikube](https://github.com/kubernetes/minikube)
