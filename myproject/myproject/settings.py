@@ -18,13 +18,18 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'myproject'
 ]
 
 ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
         'DIRS': ['templates'],
     },
 ]
@@ -46,9 +51,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Celery config
-
+# Configuration of asynchronous workers
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+# RabbitMQ
 CELERY_BROKER_URL = "amqp://localhost:5672"
+
+# Threshold of input string length for routing computation to the Kubernetes cluster
+MAX_INPUT_SIZE = 1000
