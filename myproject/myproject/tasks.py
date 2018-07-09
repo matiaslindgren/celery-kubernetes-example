@@ -14,3 +14,19 @@ def queue_lcs(task_id):
         result = lcs.longest_common_substr(task.string_a, task.string_b)
     task.lcs = result
     task.save()
+
+
+@celery.shared_task
+def do_local_lcs(str_a, str_b):
+    pass
+
+
+@celery.shared_task
+def do_remote_lcs(str_a, str_b):
+    pass
+
+
+@celery.shared_task
+def write_result(task_id, result):
+    pass
+
