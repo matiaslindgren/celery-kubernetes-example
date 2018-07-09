@@ -18,24 +18,27 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    # rest_framework dependencies
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+    # Django REST API
     'rest_framework',
-    'myproject'
+
+    'myproject',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
-        'DIRS': ['templates'],
+        'APP_DIRS': True, # We need the HTTP views for REST API
     },
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
+# SQLite is sufficient for playing with the app locally.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -55,7 +58,7 @@ STATIC_URL = '/static/'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-# RabbitMQ
+# If you deploy RabbitMQ somewhere else, remember to also change the Kubernetes Pod BROKER_URL environment variable for the worker container.
 CELERY_BROKER_URL = "amqp://localhost:5672"
 
 # Threshold of input string length for routing computation to the Kubernetes cluster
