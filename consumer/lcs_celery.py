@@ -15,8 +15,7 @@ def make_celery():
     broker_url = f"amqp://{user}:{password}@{url}"
     return Celery("lcs_celery", broker=broker_url)
 
-app = make_celery()
-
 if __name__ == "__main__":
+    app = make_celery()
     # Make this celery app executable from the command line
     app.worker_main()
