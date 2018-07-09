@@ -17,6 +17,7 @@ class Task(models.Model):
 
 # API serializer
 class TaskSerializer(serializers.ModelSerializer):
+    # TODO serialize only head of long strings
     class Meta:
         model = Task
         fields = ('id', 'created', 'string_a', 'string_b', 'lcs')

@@ -52,6 +52,7 @@ def write_result(result, task_id):
     Write result of a task into the database.
     """
     task = Task.objects.get(pk=task_id)
+    logger.info("Writing result for task %s", task)
     task.lcs = result
     task.save()
 
