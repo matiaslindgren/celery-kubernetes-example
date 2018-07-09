@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lcs
+  labels:
+    app: lcs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lcs
+  template:
+    metadata:
+      labels:
+        app: lcs
+    spec:
+      containers:
+      - name: lcs
+        image: lcs:1
+        imagePullPolicy: Never
+        env:
+        - name: BROKER_USER
+          value: minikube
+        - name: BROKER_PASSWORD
+          value: verysecret
+        # set this to the rabbitmq deployment
+        #- name: BROKER_URL
+        #value: rabbitmq:5672
