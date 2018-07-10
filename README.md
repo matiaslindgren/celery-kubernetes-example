@@ -1,9 +1,10 @@
-Toy example of a RESTful service computing long running tasks asynchronously in two different queues depending on input size.
-Small input is routed to a local task consumer, while large input is routed to a remote Kubernetes cluster.
+Toy example of a RESTful service computing long running tasks asynchronously using two different queues depending on input size.
+The message broker delegates tasks either to local workers or a Kubernetes cloud, containing a scalable setup for workers.
+Small input is consumed locally, while large input is consumed remotely.
 
-The service is represented by ``myproject`` and the long running tasks by the Python library ``lcs``, containing a poor implementation of a longest common substring algorithm.
+The service is represented by ``myproject`` and the long running tasks by a Python library named ``lcs``, containing a poor implementation of a longest common substring algorithm.
 
-### Sketch (autoscaling still WIP)
+### Sketch
 
 ![architecture sketch](./celerykube.png)
 
@@ -18,20 +19,20 @@ The service is represented by ``myproject`` and the long running tasks by the Py
 ### Running locally
 
 Please first install Minikube according to the installation instructions provided [here](https://github.com/kubernetes/minikube).
-Minikube is a bit more challenging to get running than a simple Python package or systemd service, because Minikube will be running a VM.
-The host system used in this example was an Ubuntu 16.04 with virtualization provided by KVM.
+Minikube will be running a VM, and can therefore be a bit more challenging to get running compared to a simple Python package or systemd service.
+The host system used in this example was an Ubuntu 16.04 with virtualization provided by KVM and the Minikube KVM2 driver.
 
-Start the Kubernetes cluster (replace the driver if not using KVM):
+Assuming Minikube is properly installed, and the current user is allowed to run virtualizations, start the Kubernetes cluster (replace the driver name if not using KVM):
 ```
 minikube start --vm-driver kvm2
 ```
 Update the address of your RabbitMQ service in ``consumer/kube-deployment.yaml``.
 If RabbitMQ is running locally, Minikube needs to access the host machine.
-Minikube has created a virtual network and the host is (most likely) the first address, so the following address will probably work:
+The host address is (most likely) the first address in the virtual network created by Minikube:
 ```
 minikube ip | sed 's/[0-9]\+$/1/'
 ```
-Now, build the Docker image for the consumer container.
+Now, build a Docker image for the consumer client.
 First, set some environment variables for the current terminal instance to share the host Docker daemon with the Minikube VM:
 ```
 eval (minikube docker-env)
@@ -46,6 +47,11 @@ Now, create a Deployment that deploys consumer containers into the local Kuberne
 ```
 kubectl create --filename consumer/kube-deployment.yaml
 ```
+Kubernetes should now start deploying the consumers into pods:
+```
+kubectl get pods
+```
+
 
 If Minikube cannot connect to its virtual network, check the state of the ``minikube-net`` network:
 ```
