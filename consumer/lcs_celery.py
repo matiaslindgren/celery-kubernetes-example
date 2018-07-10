@@ -11,11 +11,12 @@ def make_celery():
     # Notice, though, that RabbitMQ is not deployed in the Kubernetes cluster.
     user = os.environ["BROKER_USER"]
     password = os.environ["BROKER_PASSWORD"]
-    url = os.environ["BROKER_URL"]
-    broker_url = f"amqp://{user}:{password}@{url}"
-    return Celery("lcs_celery", broker=broker_url)
+    address = os.environ["BROKER_ADDRESS"]
+    broker_address = f"amqp://{user}:{password}@{address}"
+    return Celery("lcs_celery", broker=broker_address)
+
+app = make_celery()
 
 if __name__ == "__main__":
-    app = make_celery()
     # Make this celery app executable from the command line
     app.worker_main()

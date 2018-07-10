@@ -19,10 +19,10 @@ spec:
         image: lcs:1
         imagePullPolicy: Never
         env:
+        # Fix these to match your RabbitMQ configuration
         - name: BROKER_USER
           value: minikube
         - name: BROKER_PASSWORD
           value: verysecret
-        # set this to the rabbitmq deployment
-        #- name: BROKER_URL
-        #value: rabbitmq:5672
+       #- name: BROKER_ADDRESS
+       #  value: <rabbitmq>:5672
