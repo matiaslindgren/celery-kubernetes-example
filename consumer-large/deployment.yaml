@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-large
+  labels:
+    app: consumer-large
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-large
+  template:
+    metadata:
+      labels:
+        app: consumer-large
+    spec:
+      containers:
+      - name: consumer-large
+        image: consumer-large:1
+        imagePullPolicy: Never
+        env:
+        - name: CELERY_BROKER_URL
+          value: "amqp://guest:guest@rabbitmq-service:5672"
+        - name: CELERY_RESULT_BACKEND
+          value: "rpc://"
+#         env:
+#         - name: CELERY_BROKER_URL
+#           value: 'redis://redis-service:6379/0'
+#         - name: CELERY_RESULT_BACKEND
+#           value: 'redis://redis-service:6379/1'
