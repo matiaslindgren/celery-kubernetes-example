@@ -1,0 +1,43 @@
+.input-area label {
+	display: flex;
+	justify-content: left;
+	align-items: center
+}
+.input-area label[for="string-a-input"] {
+	grid-area: str-a-label;
+}
+.input-area label[for="string-b-input"] {
+	grid-area: str-b-label;
+}
+.input-area textarea[id="string-a-input"] {
+	grid-area: str-a;
+}
+.input-area textarea[id="string-b-input"] {
+	grid-area: str-b;
+}
+.input-area button {
+	grid-area: submit-btn;
+}
+
+.input-area * {
+	font-size: large;
+}
+
+.input-area {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 40px auto 40px auto 40px;
+	grid-template-areas:
+		"str-a-label"
+		"str-a"
+		"str-b-label"
+		"str-b"
+		"submit-btn"
+}
+
+table {
+	min-width: 100%;
+}
+tbody td {
+	text-align: center;
+}

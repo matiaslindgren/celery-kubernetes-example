@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>celerykube</title>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <h1>compute longest common substring</h1>
+    <div class="input-area">
+      <label for="string-a-input">String A</label>
+      <textarea id="string-a-input" rows=4>yellow</textarea>
+      <label for="string-b-input">String B</label>
+      <textarea id="string-b-input" rows=4>lower</textarea>
+      <button id="submit-button">Submit task</button>
+    </div>
+    <h1>all tasks</h1>
+    <button id="refresh-button">Refresh</button>
+    <div id="tasks-table-container">
+    </div>
+  </body>
+</html>
