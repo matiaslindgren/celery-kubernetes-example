@@ -1,4 +1,4 @@
-db.sqlite3
+*sqlite3.db
 __pycache__
 *.sw[op]
 *.py[oc]
