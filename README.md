@@ -39,9 +39,9 @@ eval (minikube -p minikube docker-env)
 ```
 Build all Docker images for Minikube:
 ```
-docker build --tag myproject:1 --file myproject/dockerfile .
-docker build --tag consumer-small:1 --file consumer-small/dockerfile .
-docker build --tag consumer-large:1 --file consumer-large/dockerfile .
+docker build --tag myproject:1 --file myproject/Dockerfile .
+docker build --tag consumer-small:1 --file consumer-small/Dockerfile .
+docker build --tag consumer-large:1 --file consumer-large/Dockerfile .
 ```
 Check that the images were created successfully:
 ```
