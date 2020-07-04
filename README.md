@@ -123,6 +123,7 @@ You should now have 6 pods running:
 ```
 kubectl get pods
 ```
+If you submit several large tasks now, you should see much higher CPU usage.
 
 ### Other useful things
 
