@@ -1,8 +1,6 @@
 """
 Interface for launching asynchronous Celery tasks.
 """
-import os
-
 import celery
 import lcs.tasks
 
