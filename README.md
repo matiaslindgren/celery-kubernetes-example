@@ -26,6 +26,10 @@ The web service is represented by ``myproject`` and long running tasks are simul
 
 All application dependencies will be installed into Docker containers.
 
+### Docker Desktop
+
+You can probably run all examples without `minikube` if you are using Kubernetes with Docker Desktop.
+
 ## Running
 
 Assuming `dockerd` is running and `minikube` is installed, let's deploy the system inside a Minikube cluster.
