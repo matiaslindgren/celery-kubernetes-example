@@ -26,7 +26,7 @@ The web service is represented by ``myproject`` and long running tasks are simul
 
 All application dependencies will be installed into Docker containers.
 
-### Docker Desktop
+### Docker Desktop (optional)
 
 You can probably run all examples without `minikube` if you are using Kubernetes with Docker Desktop.
 
