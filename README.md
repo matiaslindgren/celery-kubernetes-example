@@ -39,7 +39,7 @@ Assuming `dockerd` is running and `minikube` is installed, let's deploy the syst
 Create a Minikube cluster that uses the local `dockerd` environment:
 ```
 minikube start
-eval (minikube -p minikube docker-env)
+eval $(minikube -p minikube docker-env)
 ```
 Build all Docker images for Minikube:
 ```
