@@ -21,8 +21,9 @@ spec:
         emptyDir: {}
       containers:
       - name: myproject
-        image: myproject:1
-        imagePullPolicy: Never
+        image: gcr.io/first-304221/myproject:1
+        # image: myproject:1
+        imagePullPolicy: Always
         volumeMounts:
         - mountPath: /data
           name: tmp-database
@@ -39,8 +40,9 @@ spec:
 #         - name: CELERY_RESULT_BACKEND
 #           value: 'redis://redis-service:6379/1'
       - name: consumer-small
-        image: consumer-small:1
-        imagePullPolicy: Never
+        # image: consumer-small:1
+        image: gcr.io/first-304221/consumer-small:1          
+        imagePullPolicy: Always
         volumeMounts:
         - mountPath: /data
           name: tmp-database
