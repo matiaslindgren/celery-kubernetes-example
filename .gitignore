@@ -3,3 +3,4 @@ __pycache__
 *.sw[op]
 *.py[oc]
 .env
+/venv
