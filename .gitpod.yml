@@ -1,10 +1,10 @@
 tasks:
-  - init: make
-      curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz
-      mkdir -p /workspace/gcloud
-      tar -C /workspace/gcloud -xvf /tmp/google-cloud-sdk.tar.gz 
-      /workspace/gcloud/google-cloud-sdk/install.sh
-      PATH $PATH:/workspace/gcloud/google-cloud-sdk/bin
+  - init: make;
+      curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz;
+      mkdir -p /workspace/gcloud;
+      tar -C /workspace/gcloud -xvf /tmp/google-cloud-sdk.tar.gz;
+      /workspace/gcloud/google-cloud-sdk/install.sh;
+      PATH $PATH:/workspace/gcloud/google-cloud-sdk/bin;
 
 
 # Downloading gcloud package
