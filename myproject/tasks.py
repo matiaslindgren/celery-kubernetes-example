@@ -3,6 +3,7 @@ Interface for launching asynchronous Celery tasks.
 """
 import celery
 import lcs.tasks
+import spotify2genius.tasks
 
 import database
 import settings
