@@ -6,10 +6,16 @@ import logging
 import os
 
 import flask
+from flask import Flask, jsonify, request
+from flask_pydantic import validate
+import json 
 
 import database
 import settings
 import tasks
+
+from models.output import DataOutPut
+from models.input import JobInput
 
 
 flask_app = flask.Flask(__name__)
@@ -24,6 +30,16 @@ celery_app = tasks.make_celery(flask_app)
 def timestamp2iso(t):
     return '' if t is None else datetime.datetime.fromtimestamp(t).isoformat()
 
+
+
+# @flask_app.route("/", methods=["POST"])
+# @validate()
+# def get_index(inputs: JobInput):
+#
+#     task_id = tasks.create_s2p_task(inputs.user, inputs.playlist_id, inputs.project_name, inputs.debug, inputs.num_threads, inputs.threshold)
+#     flask_app.logger.info(f"Created new task{task_id}")
+#     return {"task_id": task_id}
+    
 @flask_app.route("/", methods=["GET"])
 def get_index():
     return flask.render_template("index.html")
