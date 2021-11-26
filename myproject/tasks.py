@@ -4,6 +4,7 @@ Interface for launching asynchronous Celery tasks.
 import celery
 import lcs.tasks
 
+
 import database
 import settings
 
@@ -22,6 +23,7 @@ def make_celery(app):
                 return self.run(*args, **kwargs)
     c.Task = ContextTask
     return c
+
 
 def create_lcs_task(str_a, str_b):
     """

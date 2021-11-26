@@ -16,8 +16,9 @@ spec:
     spec:
       containers:
       - name: consumer-large
-        image: consumer-large:1
-        imagePullPolicy: Never
+        # image: consumer-large:1
+        image: gcr.io/first-304221/consumer-large:1
+        imagePullPolicy: Always
         env:
         - name: CELERY_BROKER_URL
           value: "amqp://guest:guest@rabbitmq-service:5672"

@@ -5,6 +5,7 @@ import os
 from celery import Celery
 from lcs.tasks import longest_common_substr
 
+
 def make_celery():
     return Celery("consumer-large",
             backend=os.environ.get("CELERY_RESULT_BACKEND"),

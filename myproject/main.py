@@ -7,9 +7,11 @@ import os
 
 import flask
 
+
 import database
 import settings
 import tasks
+
 
 
 flask_app = flask.Flask(__name__)
@@ -24,6 +26,8 @@ celery_app = tasks.make_celery(flask_app)
 def timestamp2iso(t):
     return '' if t is None else datetime.datetime.fromtimestamp(t).isoformat()
 
+
+    
 @flask_app.route("/", methods=["GET"])
 def get_index():
     return flask.render_template("index.html")
@@ -58,4 +62,4 @@ if __name__ == "__main__":
         flask_app.logger.info("Created database %s", settings.database_path)
     else:
         flask_app.logger.info("Using existing database %s", settings.database_path)
-    flask_app.run()
+    flask_app.run(host='0.0.0.0', port='5000')

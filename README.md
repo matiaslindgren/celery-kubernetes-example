@@ -36,23 +36,61 @@ Assuming `dockerd` is running and `minikube` is installed, let's deploy the syst
 
 ### Initialization
 
-Create a Minikube cluster that uses the local `dockerd` environment:
+Make sure you have google cloud sdk installed and pathed correctly.
+https://cloud.google.com/sdk/docs/install
+
+then auth you google credentials and either make a new project or use an exiting one.
 ```
-minikube start
-eval $(minikube -p minikube docker-env)
+gcloud auth login
+gcloud projects list
+gcloud projects create example-foo-bar-project-name-1 --name="Happy project"
 ```
-Build all Docker images for Minikube:
+or use an exiting project 
 ```
-docker build --tag myproject:1 --file myproject/Dockerfile .
-docker build --tag consumer-small:1 --file consumer-small/Dockerfile .
-docker build --tag consumer-large:1 --file consumer-large/Dockerfile .
-```
-Check that the images were created successfully:
-```
-docker images
+gcloud config set project MY_PROJECT_NAME
 ```
 
+run this to allow you to push to google container registry and when prompted say yes.
+```
+gcloud auth configure-docker
+```
+
+
+Build and push you Docker images to GRC:
+```
+docker build --tag myproject:1 --file myproject/Dockerfile .
+docker tag myproject:1 gcr.io/first-304221/myproject:1
+docker push gcr.io/first-304221/myproject:1
+
+docker build --tag consumer-small:1 --file consumer-small/Dockerfile .
+docker tag consumer-small:1 gcr.io/first-304221/consumer-small:1
+docker push gcr.io/first-304221/consumer-small:1
+
+docker build --tag consumer-large:1 --file consumer-large/Dockerfile .
+docker tag consumer-large:1 gcr.io/first-304221/consumer-large:1
+docker push gcr.io/first-304221/consumer-large:1
+```
+
+
 ### Deploying applications
+
+Install gcloud kubectl and set project 
+```
+gcloud components install kubectl
+
+gcloud config set project MY_PROJECT_NAME
+gcloud config set compute/zone ZONE_NAME
+```
+
+Create a GKE cluster with preemptive (spot) instance processors. And pass credentials to kubectl.
+```
+gcloud container clusters create my-celery-cluster --num-nodes=1 \
+--preemptible \
+--enable-autoscaling --max-nodes=5 --min-nodes=1
+
+gcloud container clusters get-credentials my-celery-cluster
+```
+
 
 Deploy the RabbitMQ message broker as a service inside the cluster (I left some config files for Redis too but they are not used here):
 ```
@@ -106,11 +144,11 @@ I prefer to open new terminals or `tmux` for all applications and then use `kube
 
 ### Interacting with the web app
 
-Now everything is running and we can expose the Flask web app port to our local machine:
+Now everything is running and we can get the exposed port from the Load balancer service 
 ```
-kubectl port-forward deployment/myproject 5000:5000
+kubectl get service myproject-svc
 ```
-Then open http://localhost:5000/ in a browser and you should see a simple web UI.
+Then got to the exteranl ip in a browser, and you should see a simple web UI.
 
 Try copy-pasting some strings and compute the longest common substrings for them.
 E.g. first try short strings and check that the tasks show up in the Celery logs of pod `consumer-small`.
@@ -155,9 +193,8 @@ celery inspect report --broker=$CELERY_BROKER_URL
 ```
 
 ## Cleanup
-Terminate all pods by removing the deployments:
+Terminate the cluster to avoid any additional charges
 ```
-kubectl delete deploy myproject consumer-large rabbitmq
-kubectl delete service rabbitmq-service
+gcloud container clusters delete my-celery-cluster
 ```
 
