@@ -6,16 +6,16 @@ import logging
 import os
 
 import flask
-from flask import Flask, jsonify, request
-from flask_pydantic import validate
-import json 
+# from flask import Flask, jsonify, request
+# from flask_pydantic import validate
+# import json
 
 import database
 import settings
 import tasks
 
-from models.output import DataOutPut
-from models.input import JobInput
+# from models.output import DataOutPut
+# from models.input import JobInput
 
 
 flask_app = flask.Flask(__name__)
@@ -74,4 +74,4 @@ if __name__ == "__main__":
         flask_app.logger.info("Created database %s", settings.database_path)
     else:
         flask_app.logger.info("Using existing database %s", settings.database_path)
-    flask_app.run()
+    flask_app.run(host='0.0.0.0', port='5000')

@@ -38,31 +38,47 @@ gcloud components install kubectl
 gcloud config set project first-304221
 gcloud config set compute/zone us-east1-d
 
+
+
+# -------- my-cluster-name -------------
+gcloud container clusters create my-cluster-name --num-nodes=1 \
+--preemptible \
+--enable-autoscaling --max-nodes=5 --min-nodes=1
+
+gcloud container clusters get-credentials my-cluster-name
+
+
+
+gcloud container clusters delete my-cluster-name
+
+# -------- my-celery-cluster -------------
 gcloud container clusters create my-celery-cluster --num-nodes=1 \
 --preemptible \
 --enable-autoscaling --max-nodes=5 --min-nodes=1
 
 gcloud container clusters get-credentials my-celery-cluster
-
-
-kubectl create --filename message_queue/rabbitmq-deployment.yaml
-kubectl create --filename message_queue/rabbitmq-service.yaml
+# -------- my-celery-cluster -------------
+# -f is --filename
+kubectl create -f message_queue/rabbitmq-deployment.yaml
+kubectl create -f message_queue/rabbitmq-service.yaml
 
 
 # I changed the yml to point to the image in gcr (had to repush images?)
-kubectl create --filename myproject/deployment.yaml
-
-kubectl create --filename consumer-large/deployment.yaml
+kubectl create -f myproject/deployment.yaml
+kubectl create -f consumer-large/deployment.yaml
 
 kubectl get pods
 
 kubectl port-forward deployment/myproject 5000:5000
 
-kubectl get service myproject --output yaml
+kubectl get service myproject-svc --output yaml
+kubectl describe services myproject-svc
 
-kubectl port-forward service/myproject 5000
+# kubectl port-forward service/myproject-svc 5000:80 never exposed the port in the docekrfile
+
 
 gcloud container clusters delete my-celery-cluster
+
 
 
 

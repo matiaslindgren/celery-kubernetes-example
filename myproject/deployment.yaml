@@ -1,3 +1,19 @@
+# LoadBalancer Service
+# Enables the pods in a deployment to be accessible from outside the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: myproject-svc
+spec:
+  selector:
+    app: myproject
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,6 +37,9 @@ spec:
         emptyDir: {}
       containers:
       - name: myproject
+        # I added this
+        ports:
+          - containerPort: 5000
         image: gcr.io/first-304221/myproject:1
         # image: myproject:1
         imagePullPolicy: Always
@@ -41,7 +60,7 @@ spec:
 #           value: 'redis://redis-service:6379/1'
       - name: consumer-small
         # image: consumer-small:1
-        image: gcr.io/first-304221/consumer-small:1          
+        image: gcr.io/first-304221/consumer-small:1
         imagePullPolicy: Always
         volumeMounts:
         - mountPath: /data
