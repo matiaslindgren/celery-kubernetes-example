@@ -4,7 +4,7 @@ CLI Celery app for handling lcs.tasks.longest_common_substr calls asynchronously
 import os
 from celery import Celery
 from lcs.tasks import longest_common_substr
-from spotify2genius.tasks import get_lyrics
+
 
 def make_celery():
     return Celery("consumer-large",
