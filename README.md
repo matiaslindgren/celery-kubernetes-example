@@ -36,7 +36,7 @@ Assuming `dockerd` is running and `minikube` is installed, let's deploy the syst
 
 ### Initialization
 
-Create a Minikube cluster that uses the local `dockerd` environment:
+Create a Minikube cluster that uses the local `dockerd` environment (skip this step if you are running Kubernetes from Docker Desktop):
 ```
 minikube start
 eval $(minikube -p minikube docker-env)
