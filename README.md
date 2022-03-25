@@ -41,7 +41,7 @@ Create a Minikube cluster that uses the local `dockerd` environment (skip this s
 minikube start
 eval $(minikube -p minikube docker-env)
 ```
-Build all Docker images for Minikube:
+Build all Docker images:
 ```
 docker build --tag myproject:1 --file myproject/Dockerfile .
 docker build --tag consumer-small:1 --file consumer-small/Dockerfile .
@@ -54,7 +54,7 @@ docker images
 
 ### Deploying applications
 
-Deploy the RabbitMQ message broker as a service inside the cluster (I left some config files for Redis too but they are not used here):
+Deploy the RabbitMQ message broker as a service inside the cluster:
 ```
 kubectl create --filename message_queue/rabbitmq-deployment.yaml
 kubectl create --filename message_queue/rabbitmq-service.yaml
@@ -160,4 +160,3 @@ Terminate all pods by removing the deployments:
 kubectl delete deploy myproject consumer-large rabbitmq
 kubectl delete service rabbitmq-service
 ```
-
