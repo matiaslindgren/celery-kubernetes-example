@@ -51,6 +51,13 @@ Check that the images were created successfully:
 ```
 docker images
 ```
+Output:
+```
+REPOSITORY           TAG       IMAGE ID       CREATED         SIZE
+consumer-large       1         ddfec2f889ad   3 minutes ago   67.2MB
+consumer-small       1         99e589f61f63   3 minutes ago   72.4MB
+myproject            1         bbed507879da   3 minutes ago   72.4MB
+```
 
 ### Deploying applications
 
@@ -114,7 +121,7 @@ Then open http://localhost:5000/ in a browser and you should see a simple web UI
 
 Try copy-pasting some strings and compute the longest common substrings for them.
 E.g. first try short strings and check that the tasks show up in the Celery logs of pod `consumer-small`.
-Then try long strings ([over 1000 chars](./myproject/settings.py)) and check the Celery logs of pod `consumer-large`.
+Then try long strings (over 1000 chars) and check the Celery logs of pod `consumer-large`.
 The `consumer-large` pods run Celery workers with `--concurrency 2`, so you should be seeing two CPUs being utilized when submitting two or more large tasks at the same time.
 
 ### Scaling up
